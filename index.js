@@ -7,13 +7,11 @@ import cors from "cors";
 import UserModel from "./models/User.js";
 import PostModel from "./models/Post.js";
 
-const PORT = 4000;
-
 const URL = 'mongodb+srv://89521618116:140698@vkintership.foaxcgq.mongodb.net/VKintership?retryWrites=true&w=majority';
 
 // Подключение к базе данных MongoDB
 mongoose
-    .connect(URL, { useNewUrlParser: true, useUnifiedTopology: true })
+    .connect(process.env.MONGODB_URI, { useNewUrlParser: true, useUnifiedTopology: true })
     .then(() => console.log("bd OK"))
     .catch((err) => console.log(`Error: ${err}`));
 
@@ -264,12 +262,11 @@ app.get('/users/search', async (req, res) => {
     } catch (err) {
         res.status(500).json({ message: 'Не удалось выполнить поиск пользователей' });
     }
-});  
+});
 
 
-app.listen(PORT, (err) => {
+app.listen(process.env.PORT || 4000, (err) => {
     if (err) { return console.log(err); }
     console.log("server OK");
 })
-
 
