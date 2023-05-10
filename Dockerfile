@@ -1,14 +1,23 @@
-# Use the official Node.js image as the base image
+# Используем официальный образ Node.js как базовый образ
 FROM node:18
 
-# Set the working directory in the container
+# Устанавливаем рабочую директорию внутри контейнера
 WORKDIR /app
 
-# Copy the application files into the working directory
-COPY . /app
+# Копируем зависимости вашего проекта в контейнер
+COPY package*.json ./
 
-# Install the application dependencies
+# Устанавливаем зависимости вашего проекта
 RUN npm install
 
-# Define the entry point for the container
-CMD ["npm", "start"]
+# Копируем файлы вашего проекта в контейнер
+COPY . .
+
+# Определяем переменную окружения
+ENV NODE_ENV production
+
+# Открываем порт, на котором будет работать ваше приложение
+EXPOSE 3000
+
+# Запускаем ваше приложение
+CMD ["node", "index.js"]
