@@ -11,7 +11,7 @@ const URL = 'mongodb+srv://89521618116:140698@vkintership.foaxcgq.mongodb.net/VK
 
 // Подключение к базе данных MongoDB
 mongoose
-    .connect(process.env.MONGODB_URI, { useNewUrlParser: true, useUnifiedTopology: true })
+    .connect(process.env.MONGODB_URI || URL, { useNewUrlParser: true, useUnifiedTopology: true })
     .then(() => console.log("bd OK"))
     .catch((err) => console.log(`Error: ${err}`));
 
